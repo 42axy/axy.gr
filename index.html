@@ -125,6 +125,10 @@
     </style>
 </head>
 <body>
+    <audio autoplay loop style="display: none;">
+        <source src="attached_assets/forevermore_1762778269386.m4a" type="audio/mp4">
+    </audio>
+    
     <div class="container">
         <div class="text-container">
             <h1 id="animated-text" class="fade-in"></h1>
@@ -163,11 +167,19 @@
             "have you spoken to god?",
             "check my socials",
             "there's no going back now",
+            "they are watching us",
             "made by axy.dev"
         ];
 
         let currentIndex = 0;
         const textElement = document.getElementById('animated-text');
+        const audio = document.querySelector('audio');
+
+        // Try to play audio, if blocked by browser, play on first user interaction
+        audio.play().catch(() => {
+            document.addEventListener('click', () => audio.play(), { once: true });
+            document.addEventListener('keydown', () => audio.play(), { once: true });
+        });
 
         function updateText() {
             // Fade out current text
